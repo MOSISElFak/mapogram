@@ -26,7 +26,9 @@ class UsersController extends Controller
             'username',
             'email',
             'phone_number',
-            'email'
+            'email',
+            'first_name',
+            'last_name'
         ]));
 
         if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {

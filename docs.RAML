@@ -1,0 +1,100 @@
+#%RAML 1.0
+---
+title: Mapogram API
+baseUri: http://mapogram.dejan7.com/api
+version: v1
+
+----------------------
+### Important: All requests should have `Accept: application/json` header set!
+----------------------
+
+/login:
+    post:
+        body:
+            username
+            password
+        responses:
+            200:
+                body:
+                    application/json:
+                    example: |
+                    {
+                        "data": {token: "a5x3425....."},
+                        "status": 200
+                    }
+            422:
+                body:
+                    application/json:
+                    example: |
+                    {
+                        "data": {error: 'Wrong username and/or password.'},
+                        "status": 422
+                    }
+
+/logout:
+    post:
+        body:
+            username
+            password
+        responses:
+            200:
+                body:
+                    application/json:
+                    example: |
+                    {
+                        "data": [],
+                        "status": 200
+                    }
+
+
+/register:
+    post:
+        body:
+            username
+            email
+            password
+            password_confirmation
+        responses:
+            200:
+                body:
+                    application/json:
+                    example: |
+                    {
+                        "data": [],
+                        "status": 200
+                    }
+            422:
+                body:
+                    application/json:
+                    example: |
+                    {
+                        "data": {username: 'Username is required',...},
+                        "status": 422
+                    }
+
+/users/{username}
+    get:
+        responses:
+            200:
+                body:
+                    application/json:
+                    example: |
+                    {
+                        "id": 1,
+                        "username": "petar",
+                        "email": "pera@pera.com",
+                        "first_name": null,
+                        "last_name": null,
+                        "avatar": "http://mapogram.dev/asda.jpg",
+                        "phone_number": null,
+                        "created_at": "2017-08-27 11:50:54",
+                        "updated_at": "2017-08-27 12:10:54"
+                    }
+    patch:
+        body:
+            username
+            email
+            phone_number
+            first_name
+            last_name
+            avatar: file

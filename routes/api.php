@@ -16,14 +16,11 @@ use Illuminate\Http\Request;
 Route::post('/register', 'RegisterController@register');
 Route::post('/login', 'LoginController@login');
 
+Route::get('/users/{username}', 'UsersController@getUser');
+
 Route::group(['middleware' => ['auth:api']], function()
 {
     Route::post('/logout', 'LoginController@logout');
 
-    Route::get('/users/{username}', 'UsersController@getUser');
     Route::patch('/users/{username}', 'UsersController@getUser');
-
-    Route::get('/test', function () {
-        return "ZDRAVO";
-    });
 });
