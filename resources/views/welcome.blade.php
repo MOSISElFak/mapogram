@@ -59,6 +59,16 @@
                 text-transform: uppercase;
             }
 
+            .links > a {
+                  color: #636b6f;
+                  padding: 0 25px;
+                  font-size: 18px;
+                  font-weight: 600;
+                  letter-spacing: .1rem;
+                  text-decoration: underline;
+                  text-transform: uppercase;
+              }
+
             .m-b-md {
                 margin-bottom: 30px;
             }
@@ -75,6 +85,10 @@
                 <div class="links">
                     <span href="#">13466 Dejan Stošić</span>
                     <span href="#">14161 Milutin Stanković</span>
+                </div>
+
+                <div class="links" style="margin-top: 30px;">
+                    <a href="https://github.com/dejan7/mapogram">GitHub </a>
                 </div>
             </div>
         </div>
