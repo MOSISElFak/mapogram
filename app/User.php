@@ -2,12 +2,13 @@
 
 namespace App;
 
+use App\Support\SpatialModel;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, SpatialModel;
 
     /**
      * The attributes that are mass assignable.
@@ -29,5 +30,10 @@ class User extends Authenticatable
 
     public function setPasswordAttribute($value) {
         $this->attributes['password'] = bcrypt($value);
+    }
+
+    public function friends()
+    {
+        return $this->belongsToMany('App\User', 'friends', 'user1_id', 'user2_id');
     }
 }

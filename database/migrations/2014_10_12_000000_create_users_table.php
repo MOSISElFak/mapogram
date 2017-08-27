@@ -26,6 +26,8 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        DB::statement('ALTER TABLE users ADD location POINT NULL after api_token' );
     }
 
     /**
