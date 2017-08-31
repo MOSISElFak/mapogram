@@ -2,13 +2,10 @@
 
 namespace App;
 
-use App\Support\SpatialModel;
 use Illuminate\Database\Eloquent\Model;
 
-class Photo extends Model
+class Comment extends Model
 {
-    use SpatialModel;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -22,7 +19,7 @@ class Photo extends Model
         return $this->belongsTo('App\User', 'user_id');
     }
 
-    public function comments() {
-        return $this->hasMany('App\Comment', 'photo_id', 'id');
+    public function photo() {
+        return $this->belongsTo('App\Photo', 'photo_id');
     }
 }

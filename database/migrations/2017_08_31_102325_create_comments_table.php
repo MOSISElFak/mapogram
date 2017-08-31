@@ -3,9 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use DB;
 
-class CreatePhotosTable extends Migration
+class CreateCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,16 +13,13 @@ class CreatePhotosTable extends Migration
      */
     public function up()
     {
-        Schema::create('photos', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->string('filename');
-            $table->string('description');
-            $table->string('categories');
+            $table->integer('photo_id');
+            $table->string('text');
             $table->timestamps();
         });
-
-        DB::statement('ALTER TABLE photos ADD location POINT NULL after filename' );
     }
 
     /**
@@ -33,6 +29,6 @@ class CreatePhotosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('photos');
+        Schema::dropIfExists('comments');
     }
 }

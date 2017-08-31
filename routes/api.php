@@ -18,9 +18,17 @@ Route::post('/login', 'LoginController@login');
 
 Route::get('/users/{username}', 'UsersController@getUser');
 
+
 Route::group(['middleware' => ['auth:api']], function()
 {
     Route::post('/logout', 'LoginController@logout');
 
+    Route::post('/users/{username1}/friends/{username2}');
     Route::patch('/users/{username}', 'UsersController@getUser');
+
+    Route::get('/photos/{location}/{distance}', 'PhotosController@getPhotosInRadius');
+    Route::post('/photos', 'PhotosController@postPhoto');
+
+    Route::post('location/exchange', 'LocationController@locationExchange');
+
 });

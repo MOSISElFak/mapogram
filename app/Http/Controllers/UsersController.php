@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
+use Image;
+use DB;
 
 class UsersController extends Controller
 {
@@ -31,13 +33,31 @@ class UsersController extends Controller
             'last_name'
         ]));
 
-        if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
-            $filename = uniqid() . "." . $request->file('avatar')->extension();
-            $request->photo->storeAs('public', $filename);
+        if ($request->input('avatar')) {
+            $filename = uniqid() . ".jpg";
+            Image::make($request->input('avatar'))->save(public_path('images/' . $filename));
+
             $user->avatar = $filename;
             $user->save();
         }
 
         return response()->json();
+    }
+
+    public function postBecomeFriend(Request $request, $username1, $username2)
+    {
+        $user1 = User::where('username', $username1)->first();
+        $user2 = User::where('username', $username2)->first();
+
+        if (!$user1 || !$user2) {
+            return response()->json(['error' => 'no such users'], 400);
+        }
+
+        DB::insert([
+            ['user1_id' => $user1->id, 'user2_id' => $user2->id],
+            ['user1_id' => $user2->id, 'user2_id' => $user1->id],
+        ]);
+
+        return response()->json(['message' => 'success']);
     }
 }

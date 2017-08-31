@@ -33,9 +33,9 @@ version: v1
 
 /logout:
     post:
+        headers:
+            Authorization: Bearer apiTokenString
         body:
-            username
-            password
         responses:
             200:
                 body:
@@ -91,6 +91,8 @@ version: v1
                         "updated_at": "2017-08-27 12:10:54"
                     }
     patch:
+        headers:
+            Authorization: Bearer apiTokenString
         body:
             username
             email
@@ -98,3 +100,96 @@ version: v1
             first_name
             last_name
             avatar: file
+
+
+/users/{username1}/friends/{username2}
+    post:
+        description: Used so that username1 and username 2 become friends:
+        headers:
+            Authorization: Bearer apiTokenString
+        body:
+        responses:
+            200:
+                body:
+                    application/json:
+                    example: |
+                    {
+                        "message": "success"
+                    }
+
+/photos
+    post:
+        description: Uploads a photo
+        headers:
+            Authorization: Bearer apiTokenString
+        body:
+            img (base64 e.g. send a string like data:image/gif;base64,R0lGODlhZ....
+            lng (e.g. 21.899593)
+            lat (e.g. 21.899593),
+            description
+            categories (comma spaced categories e.g. '#people #nature'
+        responses:
+            200:
+                body:
+                    application/json:
+                    example: |
+                    {
+                        "message": "success"
+                    }
+
+/photos/{location}/{distance}
+    get:
+        description: Returns all images in a $distance from $location
+        queryParams:
+            location ('lng,lat' e.g. 21.899593,21.899593)
+            distance (IN METERS e.g. 5000)
+        responses:
+            200:
+                body:
+                    application/json:
+                    example: |
+                    {[
+                        {
+                            "id": 2,
+                            "user_id": 1,
+                            "filename": "59a7e2316f5fc.jpg",
+                            "location": "21.899593,43.320495",
+                            "created_at": "2017-08-31 10:17:21",
+                            "updated_at": "2017-08-31 10:17:21"
+                        },
+                        {
+                            "id": 3,
+                            "user_id": 1,
+                            "filename": "59a7e2316f5fc.jpg",
+                            "location": "21.899593,43.320495",
+                            "created_at": "2017-08-31 10:17:21",
+                            "updated_at": "2017-08-31 10:17:21"
+                        },...
+                    ]}
+
+/location/exchange
+    post:
+        description: Expects to receive user's current lng,lat. Responds with friends locations. Useful for polling.
+        headers:
+            Authorization: Bearer apiTokenString
+        body:
+            location (lng,lat)
+        responses:
+            200:
+                body:
+                    application/json:
+                    example: |
+                    {[
+                        {
+                            "id": 2,
+                            "username" "peter"
+                            "avatar": "59a7e2316f5fc.jpg",
+                            "location": "21.899593,21.899593" //lng,lat
+                        },
+                        {
+                            "id": 3,
+                            "username" "peter"
+                            "avatar": "59a7e2316f5fc.jpg",
+                            "location": "21.899593,21.899593" //lng,lat
+                        },..
+                    ]}

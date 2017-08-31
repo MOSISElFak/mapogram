@@ -2,6 +2,8 @@
 
 namespace App\Support;
 
+use DB;
+
 /**
  * Class SpatialModel
  *
@@ -10,6 +12,8 @@ namespace App\Support;
  */
 trait SpatialModel
 {
+    protected $geofields = ['location'];
+
     public function setLocationAttribute($value) {
         $this->attributes['location'] = DB::raw("POINT($value)");
     }
@@ -30,5 +34,10 @@ trait SpatialModel
         }
 
         return parent::newQuery($excludeDeleted)->addSelect('*',DB::raw($raw));
+    }
+
+    public function scopeDistance($query, $dist, $location)
+    {
+        return $query->whereRaw('st_distance_sphere(location,POINT('.$location.')) < '.$dist);
     }
 }
