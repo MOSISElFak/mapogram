@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Photo;
 use App\User;
 use Illuminate\Http\Request;
 use Image;
 use DB;
+use Log;
 
 class UsersController extends Controller
 {
@@ -59,5 +61,15 @@ class UsersController extends Controller
         ]);
 
         return response()->json(['message' => 'success']);
+    }
+
+    public function topList() {
+        return response()->json(
+            Photo::join('users', 'users.id', '=', 'photos.user_id')
+                ->groupBy('users.id')
+                ->select(DB::raw('users.id, users.username, users.avatar, SUM(photos.likes) as total_likes'))
+                ->orderBy('total_likes', 'desc')
+                ->get()->toArray()
+        );
     }
 }

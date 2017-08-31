@@ -19,6 +19,7 @@ class CreatePhotosTable extends Migration
             $table->string('filename');
             $table->string('description');
             $table->string('categories');
+            $table->integer('likes')->default(0)->unsigned();
             $table->timestamps();
         });
 

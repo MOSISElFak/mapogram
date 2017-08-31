@@ -18,11 +18,18 @@ class Photo extends Model
         'id'
     ];
 
+    protected $appends = ['url'];
+
+
     public function user() {
         return $this->belongsTo('App\User', 'user_id');
     }
 
     public function comments() {
         return $this->hasMany('App\Comment', 'photo_id', 'id');
+    }
+
+    public function getUrlAttribute() {
+        return asset('img/' . $this->filename);
     }
 }

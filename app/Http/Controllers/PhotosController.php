@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Http\Controllers\Controller;
 use App\Photo;
 use App\User;
@@ -10,9 +11,31 @@ use Image;
 
 class PhotosController extends Controller
 {
+
+    public function getPhoto($id) {
+        return Photo::with('comments.user')
+            ->with('user')
+            ->find($id);
+    }
+
+    public function addComment($id, Request $request) {
+        $this->validate($request, [
+            'text' => 'required',
+        ]);
+
+        Comment::create([
+            'text' => $request->input('text'),
+            'user_id' => auth()->user()->id,
+            'photo_id' => $id
+        ]);
+
+        return response()->json(['message' => 'success']);
+    }
+
     /**
      * @param string $location - lng,lat (31.xxx,56.xxx)
      * @param $distance - in METERS
+     * @return \Illuminate\Http\JsonResponse
      */
     public function getPhotosInRadius($location, $distance)
     {
@@ -42,6 +65,12 @@ class PhotosController extends Controller
 
         $photo->save();
 
+        return response()->json(['message' => 'success']);
+    }
+
+    public function likePhoto($id)
+    {
+        Photo::whereId($id)->increment('likes');
         return response()->json(['message' => 'success']);
     }
 

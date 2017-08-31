@@ -36,4 +36,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\User', 'friends', 'user1_id', 'user2_id');
     }
+
+    public function getAvatarAttribute() {
+        return isset($this->avatar) ? asset('img/' . $this->avatar) : null;
+    }
 }
