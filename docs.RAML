@@ -101,6 +101,28 @@ version: v1
             last_name
             avatar: file
 
+/users/toplist
+    get:
+        responses:
+            200:
+                body:
+                    application/json:
+                    example: |
+                    [
+                        {
+                            "id": 1,
+                            "username": "petar",
+                            "avatar": "asdasd",
+                            "total_likes": 555
+                        },
+                        {
+                            "id": 1,
+                            "username": "petar",
+                            "avatar": "asdasd",
+                            "total_likes": 444
+                        },....
+                    ]
+
 
 /users/{username1}/friends/{username2}
     post:
@@ -128,6 +150,62 @@ version: v1
             lat (e.g. 21.899593),
             description
             categories (comma spaced categories e.g. '#people #nature'
+        responses:
+            200:
+                body:
+                    application/json:
+                    example: |
+                    {
+                        "message": "success"
+                    }
+/photos/{id}
+    get:
+        description: Get a single photo with author and comments
+        headers:
+            Authorization: Bearer apiTokenString
+        responses:
+            200:
+                body:
+                    application/json:
+                    example: |
+                    {
+                        "id": 2,
+                        "user_id": 1,
+                        "filename": "59a7e2316f5fc.jpg",
+                        "location": "21.899593,43.320495",
+                        "created_at": "2017-08-31 10:17:21",
+                        "updated_at": "2017-08-31 14:59:58",
+                        "likes": 3,
+                        "url": "http://mapogram.dev/img/59a7e2316f5fc.jpg",
+                        "comments": [
+                            {
+                                "id": 1,
+                                "user_id": 1,
+                                "photo_id": 2,
+                                "text": "hello world",
+                                "created_at": "2017-08-31 14:47:06",
+                                "updated_at": "2017-08-31 14:47:06",
+                                "user": {
+                                    "id": 1,
+                                    "username": "petar",
+                                    "avatar": null,
+                                }
+                            }
+                        ],
+                        "user": {
+                            "id": 1,
+                            "username": "petar",
+                            "avatar": null,
+                        }
+                    }
+
+/photos/{id}/comments
+    post:
+        description: Add a comment to a photo
+        headers:
+            Authorization: Bearer apiTokenString
+        body:
+            text
         responses:
             200:
                 body:
@@ -193,3 +271,29 @@ version: v1
                             "location": "21.899593,21.899593" //lng,lat
                         },..
                     ]}
+
+categories
+    get:
+        headers:
+            Authorization: Bearer apiTokenString
+        body:
+            text
+        responses:
+            200:
+                body:
+                    application/json:
+                    example: |
+                    [
+                        {
+                            "id": 1,
+                            "name": "#nature"
+                        },
+                        {
+                            "id": 2,
+                            "name": "#sport"
+                        },
+                        {
+                            "id": 3,
+                            "name": "#fitness"
+                        },....
+                    ]
