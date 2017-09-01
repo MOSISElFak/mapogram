@@ -30,6 +30,6 @@ class Photo extends Model
     }
 
     public function getUrlAttribute() {
-        return asset('img/' . $this->filename);
+        return asset('images/' . $this->filename);
     }
 }
