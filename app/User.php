@@ -40,4 +40,8 @@ class User extends Authenticatable
     public function getAvatarAttribute($value) {
         return $value ? asset('images/' . $value) : null;
     }
+
+    public function photos() {
+        return $this->hasMany('App\Photo', 'user_id', 'id');
+    }
 }
