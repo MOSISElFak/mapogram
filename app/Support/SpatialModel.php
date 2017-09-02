@@ -36,8 +36,17 @@ trait SpatialModel
         return parent::newQuery($excludeDeleted)->addSelect('*',DB::raw($raw));
     }
 
-    public function scopeDistance($query, $dist, $location)
+    public function scopeDistance($query, $dist, $location, $categories = null)
     {
-        return $query->whereRaw('st_distance_sphere(location,POINT('.$location.')) < '.$dist);
+        $r = $query->whereRaw('st_distance_sphere(location,POINT('.$location.')) < '.$dist);
+        $categories = explode(",", $categories);
+
+        $r->where(function ($q) use ($categories) {
+            foreach ($categories as $cat) {
+                $q->orWhere("categories", 'like', "%" . $cat ."%");
+            }
+        });
+
+
     }
 }

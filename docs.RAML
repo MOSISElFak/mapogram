@@ -149,7 +149,7 @@ version: v1
             lng (e.g. 21.899593)
             lat (e.g. 21.899593),
             description
-            categories (comma spaced categories e.g. '#people #nature'
+            categories (e.g. '#people #nature'
         responses:
             200:
                 body:
@@ -197,6 +197,20 @@ version: v1
                             "username": "petar",
                             "avatar": null,
                         }
+                    }
+
+/photos/{id}/likes
+    post:
+        description: like a photo
+        headers:
+            Authorization: Bearer apiTokenString
+        responses:
+            200:
+                body:
+                    application/json:
+                    example: |
+                    {
+                        "message": 'success'
                     }
 
 /photos/{id}/comments

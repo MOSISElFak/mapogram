@@ -17,7 +17,7 @@ Route::group(['middleware' => ['auth:api']], function()
     Route::get('photos/{id}', 'PhotosController@getPhoto');
     Route::post('photos/{id}/comments', 'PhotosController@addComment');
     Route::post('photos/{id}/likes', 'PhotosController@likePhoto');
-    Route::get('photos/{location}/{distance}', 'PhotosController@getPhotosInRadius');
+    Route::get('photos/{location}/{distance}/{categories?}', 'PhotosController@getPhotosInRadius');
     Route::post('photos', 'PhotosController@postPhoto');
 
     Route::post('location/exchange', 'LocationController@locationExchange');

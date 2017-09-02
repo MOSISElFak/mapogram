@@ -37,9 +37,9 @@ class PhotosController extends Controller
      * @param $distance - in METERS
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getPhotosInRadius($location, $distance)
+    public function getPhotosInRadius($location, $distance, $categories = null)
     {
-        $photos = Photo::distance($distance, $location)->get();
+        $photos = Photo::distance($distance, $location, $categories)->get();
 
         return response()->json($photos);
     }
