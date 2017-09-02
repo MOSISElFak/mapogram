@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Log;
 
 class LocationController extends Controller
 {
@@ -21,12 +22,18 @@ class LocationController extends Controller
         $this->validate($request, [
             'location' => 'required'
         ]);
-
         $user = auth()->user();
+
+
         $user->update([
             'location' => $request->input('location')
         ]);
 
         return response()->json($user->friends());
+    }
+
+    public function test(Request $request) {
+        Log::info($request->all());
+        Log::info($_SERVER);
     }
 }
