@@ -3,6 +3,7 @@
 namespace App\Support;
 
 use DB;
+use Log;
 
 /**
  * Class SpatialModel

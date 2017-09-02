@@ -229,12 +229,13 @@ version: v1
                         "message": "success"
                     }
 
-/photos/{location}/{distance}
+/photos/{location}/{distance}/{categories?}
     get:
         description: Returns all images in a $distance from $location
         queryParams:
             location ('lng,lat' e.g. 21.899593,21.899593)
             distance (IN METERS e.g. 5000)
+        categories: OPTIONAL comma separated list of categories. only photos with those categories will be returned (e.g. people,sport)
         responses:
             200:
                 body:

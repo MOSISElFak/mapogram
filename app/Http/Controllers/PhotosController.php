@@ -8,6 +8,7 @@ use App\Photo;
 use App\User;
 use Illuminate\Http\Request;
 use Image;
+use Log;
 
 class PhotosController extends Controller
 {
@@ -39,7 +40,11 @@ class PhotosController extends Controller
      */
     public function getPhotosInRadius($location, $distance, $categories = null)
     {
-        $photos = Photo::distance($distance, $location, $categories)->get();
+
+        Log::info($categories);
+        $photos = Photo::distance($distance, $location, $categories)
+            ->orderBy('id', 'ASC')
+            ->get();
 
         return response()->json($photos);
     }
