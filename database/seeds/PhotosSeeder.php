@@ -13,7 +13,7 @@ class PhotosSeeder extends Seeder
     {
         $longitude = (float) 21.892018;
         $latitude = (float) 43.318496;
-        $radius = rand(1,8); // in miles
+        $radius = 7; // in miles
 
         $lng_min = $longitude - $radius / abs(cos(deg2rad($latitude)) * 69);
         $lng_max = $longitude + $radius / abs(cos(deg2rad($latitude)) * 69);

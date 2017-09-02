@@ -61,17 +61,11 @@ class PhotosController extends Controller
         $filename = uniqid() . ".jpg";
         //Image::make($request->input('img'))->save(public_path('images/' . $filename));
 
-        $base64_str = substr($request->input('img'), strpos($request->input('img'), ",")+1); // get the image code
-        $image = base64_decode($base64_str); // decode the image
-        file_put_contents(public_path('images/' . $filename),$image); // move the image to the desired path with desired name and extension
+        $base64_str = substr($request->input('img'), strpos($request->input('img'), ",")+1);
+        $image = base64_decode($base64_str);
+        file_put_contents(public_path('images/' . $filename),$image);
 
-        Log::info($request->input("lng"));
-        Log::info($request->input("lat"));
-        DB::insert("INSERT INTO `photos` (user_id, filename, location, description, categories, created_at, updated_at) values (?, ?, POINT($request->input('lng'),$request->input('lat')), ?, ?, ?, ?)", [
-            auth()->user()->id, $filename, $request->input('description'), $request->input('categories')
-        ]);
-
-        /*$photo = new Photo([
+        $photo = Photo::create([
             'user_id'     => auth()->user()->id,
             'filename'    => $filename,
             'location'    => trim($request->input('lng')) . "," . trim($request->input('lat')),
@@ -79,7 +73,6 @@ class PhotosController extends Controller
             'categories' => $request->input('categories')
         ]);
 
-        $photo->save();*/
 
         return response()->json(['message' => 'success']);
     }

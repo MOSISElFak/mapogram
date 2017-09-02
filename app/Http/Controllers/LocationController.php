@@ -29,11 +29,8 @@ class LocationController extends Controller
             'location' => $request->input('location')
         ]);
 
-        return response()->json($user->friends());
-    }
+        $user->friends();
 
-    public function test(Request $request) {
-        Log::info($request->all());
-        Log::info($_SERVER);
+        return response()->json($user->friends);
     }
 }
