@@ -15,8 +15,8 @@ class UsersController extends Controller
     public function getUser($username) {
         $user = User::where('username', $username)->first();
 
-        if ($user->avatar)
-            $user->avatar = asset($user->avatar);
+        /*if ($user->avatar)
+            $user->avatar = asset($user->avatar);*/
 
         return $user ? response()->json($user) : response()->json(['error' => 'user not found'], 404);
     }
