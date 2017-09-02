@@ -25,6 +25,13 @@ class UsersController extends Controller
         return $user ? response()->json($user) : response()->json(['error' => 'user not found'], 404);
     }
 
+    public function getUserWithFriends($username)
+    {
+        $user = User::where('username', $username)->with('friends')->first();
+
+        return $user ? response()->json($user) : response()->json(['error' => 'user not found'], 404);
+    }
+
     public function updateUser(Request $request, $username) {
         $user = User::where('username', $username)->first();
 

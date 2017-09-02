@@ -133,6 +133,46 @@ version: v1
                             },
                         ]
                     }
+                    
+/users/{username}/friends
+    get:
+        responses:
+            200:
+                body:
+                    application/json:
+                    example: |
+                    {
+                        "id": 1,
+                        "username": "dejan",
+                        "email": "dejan@dejan.com",
+                        "first_name": null,
+                        "last_name": null,
+                        "avatar": null,
+                        "phone_number": null,
+                        "location": false,
+                        "created_at": null,
+                        "updated_at": null,
+                        "friends": [
+                            {
+                                "id": 2,
+                                "username": "kide",
+                                "email": "dejan@dsejan.com",
+                                "first_name": null,
+                                "last_name": null,
+                                "avatar": null,
+                                "phone_number": null,
+                                "location": false,
+                                "created_at": null,
+                                "updated_at": null,
+                                "user1_id": 1,
+                                "user2_id": 3,
+                                "pivot": {
+                                    "user1_id": 1,
+                                    "user2_id": 3
+                                }
+                            }
+                        ]
+                    }
 
 /users/toplist
     get:

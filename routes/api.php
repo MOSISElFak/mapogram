@@ -6,6 +6,7 @@ Route::post('/login', 'LoginController@login');
 Route::get('users/toplist', 'UsersController@topList');
 Route::get('/users/{username}', 'UsersController@getUser');
 Route::get('/users/{username}/photos', 'UsersController@getUserWithPhotos');
+Route::get('/users/{username}/friends', 'UsersController@getUserWithFriends');
 
 
 Route::group(['middleware' => ['auth:api']], function()
