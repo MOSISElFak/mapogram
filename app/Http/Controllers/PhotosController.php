@@ -58,7 +58,11 @@ class PhotosController extends Controller
         ]);
 
         $filename = uniqid() . ".jpg";
-        Image::make($request->input('img'))->save(public_path('images/' . $filename));
+        //Image::make($request->input('img'))->save(public_path('images/' . $filename));
+
+        $base64_str = substr($request->input('img'), strpos($request->input('img'), ",")+1); // get the image code
+        $image = base64_decode($base64_str); // decode the image
+        file_put_contents(public_path('images/' . $filename),$image); // move the image to the desired path with desired name and extension
 
         $photo = new Photo([
             'user_id'     => auth()->user()->id,
