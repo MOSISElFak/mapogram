@@ -31,8 +31,8 @@ class UsersSeeder extends Seeder
 
             $string = "INSERT INTO `users` (username, email, password, avatar, first_name, last_name, location, created_at, updated_at) values (?, ?, ?, ?, ?, ?, POINT($lng,$lat), ?, ?)";
             //(1, 'test.jpg', POINT($lng,$lat)), 'demo photo', '#nature', $date, $date)
-            $id = DB::insert($string, ["demouser" . ($i+1) , "demouser" . ($i+1) . "@example.com", "1", "avatar.jpg", "Demo", "User", $date, $date]);
-            DB::table("friends")->insert(['user1_id' => 1, 'user2_id' => $id]);
+            DB::insert($string, ["demouser" . ($i+1) , "demouser" . ($i+1) . "@example.com", "1", "avatar.jpg", "Demo", "User", $date, $date]);
+            DB::table("friends")->insert(['user1_id' => 1, 'user2_id' => DB::table("users")->where('username', "demouser". ($i+1))->first()->id]);
         }
 
 
