@@ -47,6 +47,6 @@ trait SpatialModel
             }
         });
 
-
+        return $r;
     }
 }
