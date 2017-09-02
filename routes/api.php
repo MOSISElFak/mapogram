@@ -7,7 +7,7 @@ Route::get('users/toplist', 'UsersController@topList');
 Route::get('/users/{username}', 'UsersController@getUser');
 Route::get('/users/{username}/photos', 'UsersController@getUserWithPhotos');
 Route::get('/users/{username}/friends', 'UsersController@getUserWithFriends');
-Route::post('test', 'LocationController@test');
+Route::get('test', 'LocationController@test');
 
 Route::group(['middleware' => ['auth:api']], function()
 {
@@ -21,8 +21,8 @@ Route::group(['middleware' => ['auth:api']], function()
     Route::post('photos/{id}/likes', 'PhotosController@likePhoto');
     Route::get('photos/{location}/{distance}/{categories?}', 'PhotosController@getPhotosInRadius');
     Route::post('photos', 'PhotosController@postPhoto');
-
     Route::post('location/exchange', 'LocationController@locationExchange');
+
 
     Route::get('categories', 'CategoriesController@all');
 });

@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Image;
 use Log;
+use DB;
 
 class PhotosController extends Controller
 {
@@ -64,7 +65,13 @@ class PhotosController extends Controller
         $image = base64_decode($base64_str); // decode the image
         file_put_contents(public_path('images/' . $filename),$image); // move the image to the desired path with desired name and extension
 
-        $photo = new Photo([
+        Log::info($request->input("lng"));
+        Log::info($request->input("lat"));
+        DB::insert("INSERT INTO `photos` (user_id, filename, location, description, categories, created_at, updated_at) values (?, ?, POINT($request->input('lng'),$request->input('lat')), ?, ?, ?, ?)", [
+            auth()->user()->id, $filename, $request->input('description'), $request->input('categories')
+        ]);
+
+        /*$photo = new Photo([
             'user_id'     => auth()->user()->id,
             'filename'    => $filename,
             'location'    => trim($request->input('lng')) . "," . trim($request->input('lat')),
@@ -72,7 +79,7 @@ class PhotosController extends Controller
             'categories' => $request->input('categories')
         ]);
 
-        $photo->save();
+        $photo->save();*/
 
         return response()->json(['message' => 'success']);
     }
