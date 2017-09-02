@@ -38,6 +38,6 @@ class User extends Authenticatable
     }
 
     public function getAvatarAttribute() {
-        return isset($this->avatar) ? asset('img/' . $this->avatar) : null;
+        return isset($this->attributes['avatar'] ) ? asset('img/' . $this->avatar) : null;
     }
 }
