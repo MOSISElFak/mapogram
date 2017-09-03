@@ -31,6 +31,6 @@ class LocationController extends Controller
 
         $user->friends();
 
-        return response()->json($user->friends);
+        return response()->json(['friends' => $user->friends]);
     }
 }

@@ -78,7 +78,7 @@ class UsersController extends Controller
         return response()->json(
             Photo::join('users', 'users.id', '=', 'photos.user_id')
                 ->groupBy('users.id')
-                ->select(DB::raw('users.id, users.username, users.avatar, SUM(photos.likes) as total_likes'))
+                ->select(DB::raw('users.id, users.first_name, users.last_name, users.username, users.avatar, SUM(photos.likes) as total_likes'))
                 ->orderBy('total_likes', 'desc')
                 ->get()->toArray()
         );
