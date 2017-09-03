@@ -21,7 +21,7 @@ class LoginController extends Controller
             $user->api_token = $token;
             $user->save();
 
-            return response()->json(['token' => $token, 'username' => $user->username, 'id' => $user->id]);
+            return response()->json(['token' => $token, 'username' => $user->username, 'id' => $user->id, 'avatar' => $user->avatar]);
         } else {
             return response()->json(['error' => 'Wrong username and/or password.'], 422);
         }
