@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Console\Commands\moveusers;
+use App\Console\Commands\resetlocations;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -13,7 +15,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        moveusers::class,
+        resetlocations::class
     ];
 
     /**
